@@ -63,4 +63,21 @@ public class FinancingPlanOnPlanet
     * In this case, -x^2n+xn == -xn+xn == 0 and can be removed
     */
    public static ulong Solution(ulong n) => (n * n * n + 3 * n * n + 2 * n) / 2;
+
+   /*
+    * This solution seems more natural to me,
+    * if you imagine the table as a triangle, you will notice that n is a mean on every row.
+    * From formula of sum of arithmetic progression, S = mean(a) * n, where n is number of elements in a row.
+    * For example, when n = 6, Sum will be equal to 6*1 + 6*5 + 6*9 + 6*13 or 6*(1+5+9+13),
+    * where 1+5+9+13 is a sum of another arithmetic progression, where a1 = (2*n+1)%4, d = 4, and n = number of rows.
+    * after some simplifications, the calculation can be done in the way as in solution, where
+    * an - is amount of elements in largest row, a1 - is amount of elements in smallest row, and h - is number of rows.
+    */
+   public static ulong SolutionNext(ulong n)
+   {
+     ulong an = 2 * n + 1;
+     ulong a1 = an % 4;
+     ulong h = an / 4 + 1;
+     return h * (a1 + an) / 2 * n;
+   }
 }
